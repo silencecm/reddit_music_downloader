@@ -12,7 +12,12 @@ subreddits where users mainly post media content urls from YouTube, Soundclound 
 utility requires youtube-dl to be aliased. It also requires ffmpeg to be installed to convert media to mp3.
 * Python 2.0+
 
+## Usage / Installation
+No installation required. Simply execute `fetch` using the python interpreter. Downloaded media will be placed 
+in a new directory fetched_media.
+
 ## TODO
+* Add `.py` to fetch?
 * Enhanced verbose output -- specifically display progress of downloads.
 * Add configuration file which can.
 ⋅⋅* customize output file directory.
