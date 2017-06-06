@@ -1,0 +1,44 @@
+import json
+import subprocess
+import urllib2
+import time
+
+def resolve_redirects(request):
+    try:
+        return urllib2.urlopen(request)
+    except urllib2.HTTPError, e:
+        if e.code == 429:
+             print "Code 429: TOO MANY REQUESTS. Sleeping for 10 seconds."
+             time.sleep(10)
+             return resolve_redirects(request)
+        raise
+
+# Loop over defined subreddits (sources/subreddits)
+with open('sources/subreddits') as subreddits:
+    for subreddit in subreddits:
+        # Build a url for each subreddit found
+        subreddit_json_url = "https://www.reddit.com/r/" + subreddit.rstrip() + "/new.json?sort=new"
+        print "Processing json for: " + subreddit.rstrip() + " using URL: " + subreddit_json_url
+
+        # Process the request, parse the json and fetch each source found
+        request = urllib2.Request(subreddit_json_url)
+        response = resolve_redirects(request)
+        json_object = json.load(response)
+
+        for children in json_object['data']['children']:
+            media = children['data']
+            url = media['url']
+
+            # Check if the url has been downloaded before
+            with open('sources/downloaded', 'r') as downloaded:
+                if url in downloaded.read():
+                    print "URL found in downloaded. Skipping."
+                else:
+                    if "youtube" in url:
+                        print "Processing youtube download of " + url + " to fetched_media/"
+                        bashCommand = 'youtube-dl -o fetched_media/%(title)s-%(id)s.%(ext)s --extract-audio --audio-format mp3 ' + url
+                        process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+                        output, error = process.communicate()
+                        with open('sources/downloaded', 'a') as dl:
+                            print "Appending URL to downloaded file."
+                            dl.write(url + "\n")
