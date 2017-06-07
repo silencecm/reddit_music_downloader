@@ -4,22 +4,29 @@ import urllib2
 import time
 import datetime
 
+# Used with resolve_redirects method. Sometimes urllib2.urlopen fails "Code 429: Too many requests.
+redirect_timeout = 20
+
+today = datetime.date.today()
+formatted_date = str(today.day) + "_" + str(today.month) + "_" + str(today.year)
+
 def resolve_redirects(request):
     try:
         return urllib2.urlopen(request)
     except urllib2.HTTPError, e:
         if e.code == 429:
-             print "[WARNING]: UrlLib2 Code 429: TOO MANY REQUESTS. Sleeping for 10 seconds."
-             time.sleep(10)
+             print "[WARNING]: UrlLib2 Code 429: TOO MANY REQUESTS. Sleeping for " + str(redirect_timeout) + " seconds."
+             time.sleep(redirect_timeout)
              return resolve_redirects(request)
         raise
-
-today = datetime.date.today()
-formatted_date = str(today.day) + "_" + str(today.month) + "_" + str(today.year)
 
 # Loop over defined subreddits (sources/subreddits)
 with open('sources/subreddits') as subreddits:
     for subreddit in subreddits:
+        # Ignore comments (lines that start with #) and empty lines
+        if (subreddit[0] == "#" or subreddit == "\n"):
+            continue
+
         # Build a url for each subreddit found
         subreddit_json_url = "https://www.reddit.com/r/" + subreddit.rstrip() + "/new.json?sort=new"
         print "Processing json for: " + subreddit.rstrip() + " using URL: " + subreddit_json_url

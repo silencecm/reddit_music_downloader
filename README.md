@@ -16,15 +16,19 @@ utility requires youtube-dl to be aliased. It also requires ffmpeg to be install
 No installation required. Simply execute `fetch` using the python interpreter. Downloaded media will be placed 
 in a new directory fetched_media.
 
+#### Subreddit Settings
+Rename the file `subreddits.sample` to `subreddits`. Uncomment (remove the #) from desired subreddits to scrape from.
+Customize the `subreddits` by adding any desired subreddit.
+
 ## TODO
 * Add `.py` and main method to fetch?
-* Enhanced verbose output -- specifically display progress of downloads (subprocess?).
-* Add configuration file which can
+* Separate logic into functions.
+* Enhanced verbose logging output -- specifically display progress of downloads (subprocess?).
+* Add configuration file which can:
   * customize output directories.
   * change settings regarding the downloaders (quality, media file type, etc).
   * configure subreddit fetching (hot, new, top, etc). Currently defaults to new.
-* Add warning for empty sources/subreddits file.
-* Add comment out support for sources/subreddits.
-  * Add every music subreddit known to man and comment most of them out. Users can then uncomment to easily add.
+* Add warning for empty/missing sources/subreddits file (specific warning for not renamed sources.sample file).
+* Add warning for subreddit not found / 404.
 * Add support for sites other than just youtube (soundcloud, bandcamp, etc.).
 * Fork youtube-dl from github and run directly from this repository.
