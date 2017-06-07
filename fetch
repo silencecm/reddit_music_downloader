@@ -2,16 +2,20 @@ import json
 import subprocess
 import urllib2
 import time
+import datetime
 
 def resolve_redirects(request):
     try:
         return urllib2.urlopen(request)
     except urllib2.HTTPError, e:
         if e.code == 429:
-             print "Code 429: TOO MANY REQUESTS. Sleeping for 10 seconds."
+             print "[WARNING]: UrlLib2 Code 429: TOO MANY REQUESTS. Sleeping for 10 seconds."
              time.sleep(10)
              return resolve_redirects(request)
         raise
+
+today = datetime.date.today()
+formatted_date = str(today.day) + "_" + str(today.month) + "_" + str(today.year)
 
 # Loop over defined subreddits (sources/subreddits)
 with open('sources/subreddits') as subreddits:
@@ -35,8 +39,8 @@ with open('sources/subreddits') as subreddits:
                     print "URL found in downloaded. Skipping."
                 else:
                     if "youtube" in url:
-                        print "Processing youtube download of " + url + " to fetched_media/"
-                        bashCommand = 'youtube-dl -o fetched_media/%(title)s-%(id)s.%(ext)s --extract-audio --audio-format mp3 ' + url
+                        print "Processing youtube download of " + url + " to fetched_media/" + formatted_date + "/" + subreddit.strip()
+                        bashCommand = 'youtube-dl -o fetched_media/' + formatted_date + "/" + subreddit.strip() + "/" + '/%(title)s-%(id)s.%(ext)s --extract-audio --audio-format mp3 ' + url
                         process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
                         output, error = process.communicate()
                         with open('sources/downloaded', 'a') as dl:

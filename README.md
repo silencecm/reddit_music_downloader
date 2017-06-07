@@ -17,16 +17,14 @@ No installation required. Simply execute `fetch` using the python interpreter. D
 in a new directory fetched_media.
 
 ## TODO
-* Add `.py` to fetch?
-* Enhanced verbose output -- specifically display progress of downloads.
-* Add configuration file which can.
-⋅⋅* customize output file directory.
-⋅⋅* change settings regarding the downloaders (quality, media file type, etc).
-⋅⋅* configure subreddit fetching (hot, new, top, etc). Currently defaults to new.
+* Add `.py` and main method to fetch?
+* Enhanced verbose output -- specifically display progress of downloads (subprocess?).
+* Add configuration file which can
+  * customize output directories.
+  * change settings regarding the downloaders (quality, media file type, etc).
+  * configure subreddit fetching (hot, new, top, etc). Currently defaults to new.
 * Add warning for empty sources/subreddits file.
 * Add comment out support for sources/subreddits.
-⋅⋅* Add every music subreddit known to man and comment most of them out. Users can then uncomment to easily add.
+  * Add every music subreddit known to man and comment most of them out. Users can then uncomment to easily add.
 * Add support for sites other than just youtube (soundcloud, bandcamp, etc.).
-* Put the downloads in a dated directory under fetched_media.
-* Put the downloads in subreddit directories (under date (above)).
 * Fork youtube-dl from github and run directly from this repository.
