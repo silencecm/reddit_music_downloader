@@ -1,0 +1,6 @@
+[submodule "youtube-dl"]
+	path = youtube-dl
+	url = https://github.com/rg3/youtube-dl.git
+[submodule "soundcloud-dl"]
+	path = soundcloud-dl
+	url = https://github.com/Suyash458/soundcloud-dl

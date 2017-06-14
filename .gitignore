@@ -1,4 +1,4 @@
 fetched_media/
-sources/downloaded
-sources/subreddits
+downloaded/sources
+configuration/subreddits
 .idea/*
