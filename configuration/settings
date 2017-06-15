@@ -1,0 +1,9 @@
+# Basic settings
+# key, values
+
+# Output Directory. Use absolute path.
+# output_directory=fetched_media
+
+# youtube-dl settings:
+# playlist options
+# quality options
