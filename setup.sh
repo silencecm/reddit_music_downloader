@@ -24,7 +24,7 @@ fi
 
 if [ ! -e "downloaded/sources" ]; then
     echo "> [INFO]: Creating sources file."
-    touch sources
+    touch downloaded/sources
 fi
 
 echo "> [SUCCESS]: music_fetcher installed successfully."
